@@ -6,28 +6,8 @@ use Exception;
 
 class Router
 {
-    private $baseURL;
-    private $path;
-    private $routes = array();
     const BASE_NAMESPACE = "Children\\";
-
-    function __construct($baseURL = "http://children-api/api/")
-    {
-        $this->$baseURL = $baseURL;
-    }
-
-    /**
-     * @throws Exception
-     */
-
-    public function setBase($baseURL)
-    {
-        if (filter_var($baseURL, FILTER_VALIDATE_URL)) {
-            $this->$baseURL = $baseURL;
-        } else {
-            throw new Exception("Invalid URL");
-        }
-    }
+    const PATH_TO_CONTROLLERS = "../Controllers/";
 
     /**
      * @throws Exception
@@ -35,11 +15,34 @@ class Router
 
     public static function get($routePATH, $controller)
     {
-        $router = new self;
-        $data = $router->getController($controller)->getData();
+        if ($_SERVER['REQUEST_METHOD'] === "GET") {
+            $route = explode("/", $routePATH)[0];
+            $id = explode("/", $routePATH)[1];
+            if (explode('/', array_key_first($_GET))[0] == $route) {
 
-        echo $data;
+                $router = new self;
+                $data = $router->getController($controller)->getData($id);
+
+                print_r($data);
+            }
+        }
     }
+
+
+    /**
+     * @throws Exception
+     */
+
+    public static function post($routePATH, $controller)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $router = new self;
+            $data = $router->getController($controller)->getData();
+
+            print_r($data);
+        }
+    }
+
 
     /**
      * @throws Exception
@@ -47,7 +50,7 @@ class Router
 
     public function getController($controllerName, $params = [])
     {
-        $fullPath = "../Controllers/" . $controllerName . ".php";
+        $fullPath = self::PATH_TO_CONTROLLERS . $controllerName . ".php";
 
         if (file_exists($fullPath)) {
             require_once $fullPath;
@@ -56,6 +59,10 @@ class Router
         } else {
             throw new Exception("Not such file : " . $fullPath);
         }
+    }
 
+    public static function getRoutePath()
+    {
+//        $path
     }
 }

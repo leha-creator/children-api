@@ -1,10 +1,11 @@
 <?php
 
-
-use Children\Router;
-use Children\Song;
-
 require_once "../Classes/Router.php";
 
+use Children\Router;
 
-Router::get("", "Song");
+try {
+    Router::get("songs", "SongsController");
+} catch (Exception $e) {
+    echo $e->getMessage();
+}

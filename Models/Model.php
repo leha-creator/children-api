@@ -8,20 +8,19 @@ use Children\Classes\DB;
 
 class Model
 {
-    protected $fields = [];
-    public $table = "songs";
+    protected static $table = "";
+    protected static $fields = [];
 
-    public static function getData() : array
+    public static function getData(): array
     {
-        $model = new self();
 
-//        $fieldsToGet = [];
-//
-//        foreach($model->fields as $key => $params)
-//        {
-//            $fieldsToGet[] = $key;
-//        }
+        $fieldsToGet = [];
 
-        return DB::query($model->table);
+        foreach(static::$fields as $key => $params)
+        {
+            $fieldsToGet[] = $key;
+        }
+
+        return DB::query(static::$table, $fieldsToGet);
     }
 }

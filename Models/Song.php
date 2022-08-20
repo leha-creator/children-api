@@ -8,5 +8,10 @@ use Children\Models\Model;
 
 class Song extends Model
 {
-    public $table = "songs";
+    protected static $table = "songs";
+    protected static $fields = [
+        "title" => ""
+    ];
+
+
 }

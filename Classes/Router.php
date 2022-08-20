@@ -6,7 +6,7 @@ use Exception;
 
 class Router
 {
-    const BASE_NAMESPACE = "Children\\";
+    const CONTROLLER_NAMESPACE = "Children\Controllers\\";
     const PATH_TO_CONTROLLERS = "../Controllers/";
 
     /**
@@ -54,7 +54,7 @@ class Router
 
         if (file_exists($fullPath)) {
             require_once $fullPath;
-            $controllerNameWithNamespace = self::BASE_NAMESPACE . $controllerName;
+            $controllerNameWithNamespace = self::CONTROLLER_NAMESPACE . $controllerName;
             return new $controllerNameWithNamespace();
         } else {
             throw new Exception("Not such file : " . $fullPath);

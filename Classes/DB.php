@@ -30,13 +30,12 @@ class DB
         if (!empty($fields)) {
             $inlineFields = "";
             foreach ($fields as $fieldName) {
-                $inlineFields .= $fieldName . ", ";
+                $inlineFields .= "`" . $fieldName . "`, ";
             }
+            $inlineFields = substr($inlineFields,0,-2);
         }
 
         $sql = "SELECT " . $inlineFields . " FROM `" . $table . "`";
-
-//        return $sql;
 
         $result = $db->DBConnection->query($sql);
         $data = [];

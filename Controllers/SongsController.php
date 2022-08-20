@@ -1,5 +1,6 @@
 <?php
-namespace Children;
+
+namespace Children\Controllers;
 
 require_once "Controller.php";
 require_once "../Models/Song.php";
@@ -10,7 +11,7 @@ use Children\Models\Song;
 class SongsController implements Controller
 {
 
-    public function getData($id = null): array
+    public function getData($id = null) : array
     {
         $data = "";
 

@@ -21,7 +21,7 @@ class DB
         }
     }
 
-    public static function query($table, $fields = [], $params = []): array
+    public static function query($table, $fields = [], $params = [])
     {
         $db = new self;
 
@@ -35,7 +35,21 @@ class DB
             $inlineFields = substr($inlineFields,0,-2);
         }
 
-        $sql = "SELECT " . $inlineFields . " FROM `" . $table . "`";
+        $inlineParams = "";
+
+        if (!empty($params)) {
+            $inlineParams = "WHERE ";
+            foreach ($params as $param) {
+                $inlineParams .= "`" . $param[0] . "` " . $param[1] . " " . $param[2] . " AND ";
+            }
+
+            $inlineParams = substr($inlineParams,0,-4);
+
+        }
+
+        $sql = "SELECT " . $inlineFields . " FROM `" . $table . "`" . $inlineParams;
+
+//        return $sql;
 
         $result = $db->DBConnection->query($sql);
         $data = [];

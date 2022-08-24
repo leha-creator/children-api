@@ -17,8 +17,8 @@ class Router
     {
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             $route = explode("/", $routePATH)[0];
-            $id = explode("/", $routePATH)[1];
             if (explode('/', array_key_first($_GET))[0] == $route) {
+                $id = explode('/', array_key_first($_GET))[1];
 
                 $router = new self;
                 $data = $router->getController($controller)->getData($id);

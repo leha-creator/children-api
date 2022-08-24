@@ -11,12 +11,13 @@ use Children\Models\Song;
 class SongsController implements Controller
 {
 
-    public function getData($id = null) : array
+    public function getData($id = null)
     {
-        $data = "";
 
-        if (is_null($id)) {
-            $data = Song::getData();
+        if (empty($id)) {
+            $data = Song::all();
+        } else {
+            $data = Song::find($id);
         }
 
         return $data;

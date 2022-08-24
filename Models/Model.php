@@ -11,7 +11,7 @@ class Model
     protected static $table = "";
     protected static $fields = [];
 
-    public static function getData(): array
+    public static function all()
     {
 
         $fieldsToGet = [];
@@ -22,5 +22,22 @@ class Model
         }
 
         return DB::query(static::$table, $fieldsToGet);
+    }
+
+    public static function find($id)
+    {
+
+        $fieldsToGet = [];
+
+        foreach(static::$fields as $key => $params)
+        {
+            $fieldsToGet[] = $key;
+        }
+
+        $params = [
+            ["id", "=", $id],
+        ];
+
+        return DB::query(static::$table, $fieldsToGet, $params);
     }
 }

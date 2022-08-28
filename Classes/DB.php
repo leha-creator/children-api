@@ -2,6 +2,8 @@
 
 
 namespace Children\Classes;
+use PDO;
+
 require_once "../config.php";
 
 class DB
@@ -54,7 +56,7 @@ class DB
         $result = $db->DBConnection->query($sql);
         $data = [];
 
-        while($row = $result->fetch()){
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $data[] = $row;
         }
 

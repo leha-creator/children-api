@@ -5,6 +5,7 @@ namespace Children\Controllers;
 require_once "Controller.php";
 require_once "../Models/Song.php";
 
+use Children\Classes\Response;
 use Children\Controller;
 use Children\Models\Song;
 
@@ -20,7 +21,7 @@ class SongsController implements Controller
             $data = Song::find($id);
         }
 
-        return $data;
+        return Response::json($data);
 
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 require_once "../Classes/Router.php";
+require_once "../Classes/Response.php";
 
 use Children\Router;
 

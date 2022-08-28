@@ -11,7 +11,7 @@ use Children\Models\User;
 class UsersController implements Controller
 {
 
-    public function getData() : array
+    public function getData()
     {
         return User::getData();
     }
